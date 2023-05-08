@@ -7,14 +7,17 @@ import datetime
 
 
 # edit these three variables
-user = 'realdonaldtrump'
-start = datetime.datetime(2010, 1, 1)  # year, month, day
-end = datetime.datetime(2016, 12, 7)  # year, month, day
+user = 'neilmjohnson'
+start = datetime.datetime(2023, 5, 1)  # year, month, day
+end = datetime.datetime(2023, 5, 7)  # year, month, day
 
 # only edit these if you're having problems
 delay = 1  # time to wait on each page load before reading the page
-driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
+driver = webdriver.Chrome(executable_path=r'E:\Downloads\chromedriver_win32(5)\chromedriver.exe')
 
+# you have to log into a valid twitter account within 60 seconds or else the script will not work.
+driver.get('https://twitter.com/' + user)
+sleep(60)
 
 # don't mess with this stuff
 twitter_ids_filename = 'all_ids.json'
