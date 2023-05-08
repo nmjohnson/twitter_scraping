@@ -74,7 +74,7 @@ for day in range(days):
         print('no tweets on this day')
 
     start = increment_day(start, 1)
-
+    sleep(1) #maybe you can get more aggressive with this idk
 
 try:
     with open(twitter_ids_filename) as f:
