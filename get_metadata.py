@@ -9,7 +9,7 @@ from tweepy import TweepError
 from time import sleep
 
 # CHANGE THIS TO THE USER YOU WANT
-user = 'realdonaldtrump'
+user = 'neilmjohnson'
 
 with open('api_keys.json') as f:
     keys = json.load(f)
@@ -90,4 +90,26 @@ with open(output_file_short) as master_file:
     f = csv.writer(open('{}.csv'.format(user), 'w'))
     f.writerow(fields)
     for x in data:
-        f.writerow([x["favorite_count"], x["source"], x["text"], x["in_reply_to_screen_name"], x["is_retweet"], x["created_at"], x["retweet_count"], x["id_str"]])
+        try:
+            f.writerow([x["favorite_count"], x["source"], x["text"], x["in_reply_to_screen_name"], x["is_retweet"], x["created_at"], x["retweet_count"], x["id_str"]])
+        except:
+            continue
+
+print('creating csv file')
+pdObj = pd.read_json(output_file)
+pdObj.to_csv('tweets.csv',index=False)
+
+print('creating windows batch scripts to download images and videos')
+for i in range(0,len(pdObj)):
+    if 'extended_entities' in pdObj.iloc[i] and str(pdObj.iloc[i]['extended_entities']) != 'nan' and 'media_url' in str(pdObj.iloc[i]['extended_entities']):
+        row = pdObj.iloc[i]['extended_entities']
+        for j in range(0,len(row['media'])):
+            print(row['media'][j]['media_url'])
+            with open('image_urls.bat', 'a') as outfile:
+                outfile.write("CURL \"" + row['media'][j]['media_url'] + "\" > " + row['media'][j]['media_url'].replace("/","_").replace(":","-") + "\n")
+    if 'extended_entities' in pdObj.iloc[i] and str(pdObj.iloc[i]['extended_entities']) != 'nan' and '/video/' in str(pdObj.iloc[i]['extended_entities']):
+        row = pdObj.iloc[i]['extended_entities']
+        for j in range(0,len(row['media'])):
+            print(row['media'][j]['expanded_url'])
+            with open('video_urls.bat', 'a') as outfile:
+                outfile.write("\"D:\\transfer\yt-dlp\yt-dlp.exe\" \"" + row['media'][j]['expanded_url'] + "\"\n")
