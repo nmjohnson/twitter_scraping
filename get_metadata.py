@@ -112,4 +112,4 @@ for i in range(0,len(pdObj)):
         for j in range(0,len(row['media'])):
             print(row['media'][j]['expanded_url'])
             with open('video_urls.bat', 'a') as outfile:
-                outfile.write("\"D:\\transfer\yt-dlp\yt-dlp.exe\" \"" + row['media'][j]['expanded_url'] + "\"\n")
+                outfile.write("yt-dlp \"" + row['media'][j]['expanded_url'] + "\"\n")
