@@ -6,6 +6,10 @@ Essentially, we will use Selenium to open up a browser and automatically visit T
 
 The `scrape.py` script collects tweet ids. If you know a tweet's id number, you can get all the information available about that tweet using Tweepy - text, timestamp, number of retweets / replies / favorites, geolocation, etc. Tweepy uses Twitter's API, so you will need to get API keys. Once you have them, you can run the `get_metadata.py` script.
 
+## My updates 2023/05/08
+
+The two biggest updates I made from the original are that more output files are generated after grabbing all tweets. [Specifically a `.bat` file is created for both twitter images and videos to download those additionally if desired.](https://github.com/nmjohnson/twitter_scraping/blob/master/get_metadata.py#L102) Also **in order for this to work you need to manually log into a valid twitter account within 60 seconds of the chrome window opening otherwise each subsequent page load will prompt you to log in isntead of identifying new tweets to scrape**. Don't forget to add your own api id's as well.
+
 ## Requirements
 
 - basic knowledge on how to use a terminal
