@@ -6,6 +6,7 @@ import json
 import datetime
 
 SECONDS_IN_BETWEEN_REQUESTS = 5
+DAYS_PER_REQUEST = 5
 
 # edit these three variables
 user = 'neilmjohnson'
@@ -44,7 +45,7 @@ def increment_day(date, i):
 
 for day in range(round(days/SECONDS_IN_BETWEEN_REQUESTS)):
     d1 = format_day(increment_day(start, 0))
-    d2 = format_day(increment_day(start, 1))
+    d2 = format_day(increment_day(start, DAYS_PER_REQUEST))
     url = form_url(d1, d2)
     print(url)
     print(d1)
@@ -74,7 +75,7 @@ for day in range(round(days/SECONDS_IN_BETWEEN_REQUESTS)):
     except NoSuchElementException:
         print('no tweets on this day')
 
-    start = increment_day(start, 1)
+    start = increment_day(start, DAYS_PER_REQUEST)
     sleep(SECONDS_IN_BETWEEN_REQUESTS) #maybe you can get more aggressive with this idk
 
 try:
