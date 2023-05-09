@@ -5,6 +5,7 @@ from time import sleep
 import json
 import datetime
 
+SECONDS_IN_BETWEEN_REQUESTS = 5
 
 # edit these three variables
 user = 'neilmjohnson'
@@ -41,7 +42,7 @@ def form_url(since, until):
 def increment_day(date, i):
     return date + datetime.timedelta(days=i)
 
-for day in range(days):
+for day in range(round(days/SECONDS_IN_BETWEEN_REQUESTS)):
     d1 = format_day(increment_day(start, 0))
     d2 = format_day(increment_day(start, 1))
     url = form_url(d1, d2)
@@ -74,7 +75,7 @@ for day in range(days):
         print('no tweets on this day')
 
     start = increment_day(start, 1)
-    sleep(1) #maybe you can get more aggressive with this idk
+    sleep(SECONDS_IN_BETWEEN_REQUESTS) #maybe you can get more aggressive with this idk
 
 try:
     with open(twitter_ids_filename) as f:
